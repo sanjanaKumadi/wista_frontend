@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import Registrations from 'views/registrations';
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
@@ -20,11 +21,11 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <SamplePage />
+            element: <Registrations />
         },
         {
             path: '/registrations',
-            element: <SamplePage />
+            element: <Registrations />
         }
     ]
 };

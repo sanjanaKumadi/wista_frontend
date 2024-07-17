@@ -118,21 +118,21 @@ const ProfileSection = () => {
                         lineHeight: 0
                     }
                 }}
-                icon={
-                    <Avatar
-                        src={User1}
-                        alt="user-images"
-                        sx={{
-                            ...theme.typography.mediumAvatar,
-                            margin: '8px 0 8px 8px !important',
-                            cursor: 'pointer'
-                        }}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        color="inherit"
-                    />
-                }
+                // icon={
+                //     <Avatar
+                //         src={User1}
+                //         alt="user-images"
+                //         sx={{
+                //             ...theme.typography.mediumAvatar,
+                //             margin: '8px 0 8px 8px !important',
+                //             cursor: 'pointer'
+                //         }}
+                //         ref={anchorRef}
+                //         aria-controls={open ? 'menu-list-grow' : undefined}
+                //         aria-haspopup="true"
+                //         color="inherit"
+                //     />
+                // }
                 label={<IconSettings stroke={1.5} size="24px" />}
                 variant="outlined"
                 ref={anchorRef}
@@ -177,7 +177,7 @@ const ProfileSection = () => {
                                                         '& .MuiListItemButton-root': { mt: 0.5 }
                                                     }}
                                                 >
-                                                    <ListItemButton
+                                                    {/* <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 0}
                                                         onClick={(event) => handleListItemClick(event, 0)}
@@ -192,7 +192,7 @@ const ProfileSection = () => {
                                                                 </Typography>
                                                             }
                                                         />
-                                                    </ListItemButton>
+                                                    </ListItemButton> */}
                                                     <ListItemButton
                                                         sx={{ borderRadius: `${borderRadius}px` }}
                                                         selected={selectedIndex === 4}

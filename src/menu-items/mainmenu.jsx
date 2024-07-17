@@ -16,7 +16,8 @@ const MainMenu = {
     title: <FormattedMessage id="registrations" />,
     icon: icons.IconBrandChrome,
     type: 'group',
-    url: '/registrations'
+    url: '/registrations',
+    breadcrumbs: false
 };
 
 export default MainMenu;
