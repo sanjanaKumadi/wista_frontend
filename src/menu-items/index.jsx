@@ -1,10 +1,9 @@
-import samplePage from './sample-page';
-import pages from './pages';
+import MainMenu from './mainmenu';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [samplePage, pages]
+    items: [MainMenu]
 };
 
 export default menuItems;
