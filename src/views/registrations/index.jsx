@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
+import { saveAs } from 'file-saver';
+import QRCode from 'qrcode.react';
 
 // material-ui
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-
-
-import { IconEye } from '@tabler/icons-react';
 
 // projects import
 import { gridSpacing } from 'store/constant';
@@ -19,7 +17,6 @@ import CustomTable from 'ui-component/CustomTable';
 import CustomModal from 'ui-component/CustomModal';
 import ViewUsers from './ViewUsers';
 import RegistrationServices from 'services/registrationServices';
-// import ChapterServices from 'services/tutor/chapters/chapterServices';
 
 const Registrations = () => {
     const [rows, setRows] = useState([]);
@@ -34,7 +31,7 @@ const Registrations = () => {
 
             if (res?.data.length !== 0) {
                 const rowData = res?.data;
-                const tempRows = rowData.map((row, index) => ({
+                const tempRows = rowData.map((row) => ({
                     id: row.id,
                     name: row.name,
                     email: row.email,
@@ -58,20 +55,86 @@ const Registrations = () => {
         setOpenCreateUser(true);
     };
 
-    const handleOpenViewUser = () => {
-        setOpenViewUser(true);
-    };
-
     const handleCloseModal = () => {
         setOpenCreateUser(false);
         setOpenViewUser(false);
+    };
+
+    const downloadQRCode = (id, name, email) => {
+        const canvas = document.getElementById(`qrcode-${id}`);
+        canvas.toBlob((blob) => {
+            saveAs(blob, `${name}-${id}.png`);
+        });
+    };
+
+    const sendEmail = async (id, name, email) => {
+        try {
+            const response = await RegistrationServices.sendEmail({
+                id,
+                name,
+                email
+            });
+
+            if (response.status === 200) {
+                alert('Email sent successfully');
+            } else {
+                alert('Failed to send email');
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            alert('An error occurred while sending the email');
+        }
     };
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },
         { field: 'name', headerName: 'Name', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
-        { field: 'phone', headerName: 'Phone', headerAlign: 'center', align: 'center', flex: 1 }
+        { field: 'phone', headerName: 'Phone', headerAlign: 'center', align: 'center', flex: 1 },
+        {
+            field: 'qrCode',
+            headerName: 'Generate QR',
+            headerAlign: 'center',
+            align: 'center',
+            disableExport: true,
+            flex: 1,
+            renderCell: (params) => (
+                <>
+                    <QRCode
+                        id={`qrcode-${params.row.id}`}
+                        value={`${params.row.id},${params.row.name},${params.row.email}`}
+                        size={128}
+                        level="H"
+                        includeMargin={true}
+                        style={{ display: 'none' }}
+                    />
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => downloadQRCode(params.row.id, params.row.name, params.row.email)}
+                    >
+                        Download
+                    </Button>
+                </>
+            )
+        },
+        {
+            field: 'sendEmail',
+            headerName: 'Send Email',
+            headerAlign: 'center',
+            align: 'center',
+            disableExport: true,
+            flex: 1,
+            renderCell: (params) => (
+                <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => sendEmail(params.row.id, params.row.name, params.row.email)}
+                >
+                    Send
+                </Button>
+            )
+        }
     ];
 
     if (rows.length === 0) {

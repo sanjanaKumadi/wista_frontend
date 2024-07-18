@@ -28,10 +28,21 @@ async function getAllUsers() {
     return res;
 }
 
+async function sendEmail(data) {
+    const options = {
+        method: 'POST',
+        url: '/send-email',
+        data
+    };
+    const res = await callAPI(options, false);
+    return res;
+}
+
 const RegistrationServices = {
     insertUser,
     getDetails,
-    getAllUsers
+    getAllUsers,
+    sendEmail
 };
 
 export default RegistrationServices;

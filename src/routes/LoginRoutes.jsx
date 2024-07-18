@@ -5,6 +5,7 @@ import GuestGuard from 'utils/route-guard/GuestGuard';
 import MinimalLayout from 'layout/MinimalLayout';
 import NavMotion from 'layout/NavMotion';
 import Loadable from 'ui-component/Loadable';
+import Verify from 'views/verify';
 
 // login routing
 const AuthLogin = Loadable(lazy(() => import('views/pages/authentication/Login')));
@@ -43,6 +44,10 @@ const LoginRoutes = {
         {
             path: '/check-mail',
             element: <AuthCheckMail />
+        },
+        {
+            path: '/verify/:id',
+            element: <Verify />
         }
     ]
 };
