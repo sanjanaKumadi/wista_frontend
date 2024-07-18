@@ -75,7 +75,7 @@ const Registrations = () => {
     ];
 
     if (rows.length === 0) {
-        return <CustomEmptyMessage text="No Lessons are Created yet !!!" />;
+        return <CustomEmptyMessage text="No Registrations are Created yet !!!" />;
     }
 
     return (
