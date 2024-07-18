@@ -10,10 +10,11 @@ async function insertUser(data) {
     return res;
 }
 
-async function getDetails() {
+async function getDetails(qrcode) {
     const options = {
         method: 'GET',
-        url: '/get-user'
+        url: '/get-user',
+        params: { qrcode } 
     };
     const res = await callAPI(options, false);
     return res;
